@@ -2,6 +2,7 @@ import { OpenApiValidatorOpts } from 'express-openapi-validator/dist/framework/t
 import { LoggingOptions } from './logging.options'
 import { SwaggerUiOptions } from './swagger.ui.options';
 import * as express from 'express';
+import {ErrorHandle} from "./error.options";
 
 export class Oas3AppOptions {
     public routing: any;
@@ -11,7 +12,12 @@ export class Oas3AppOptions {
     public app: express.Application;
     public cors: any;
 
-    constructor(routingOpts: any, openApiValidatorOpts: OpenApiValidatorOpts, logging: LoggingOptions, swaggerUI: SwaggerUiOptions, app: express.Application, cors: any) {
+    public errorHandle : ErrorHandle;
+
+    constructor(routingOpts: any, openApiValidatorOpts: OpenApiValidatorOpts, logging: LoggingOptions,
+                swaggerUI: SwaggerUiOptions, app: express.Application, cors: any,
+                errorHandle: ErrorHandle
+                ) {
         this.routing = routingOpts;
         this.openApiValidator = openApiValidatorOpts;
         this.swaggerUI = swaggerUI;
@@ -20,5 +26,6 @@ export class Oas3AppOptions {
         this.logging = logging;
         this.app = app;
         this.cors = cors;
+        this.errorHandle = errorHandle;
     }
 }

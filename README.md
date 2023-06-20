@@ -1,1 +1,6 @@
-This is a forked project from https://github.com/apigee-127/swagger-tools with an attemp to add Open API 3 support. :)
+- Edit node_modules/swagger-ui-dist/swagger-initializer.js 
+    - Replace 'https://petstore.swagger.io/v2/swagger.json' with '/api-docs'
+
+- Update library to latest( npx npm-check-updates -u)
+- 
+

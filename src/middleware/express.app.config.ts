@@ -31,7 +31,7 @@ export class ExpressAppConfig {
         this.app.use(cors(appOptions.cors));
 
         const spec = fs.readFileSync(definitionPath, 'utf8');
-        const swaggerDoc = jsyaml.safeLoad(spec);
+        const swaggerDoc = jsyaml.load(spec);
 
         this.app.use(bodyParser.urlencoded());
         this.app.use(bodyParser.text());
@@ -52,7 +52,13 @@ export class ExpressAppConfig {
         (customMiddlewares || []).forEach(middleware => this.app.use(middleware))
         this.app.use(new SwaggerRouter().initialize(this.routingOptions));
 
-        this.app.use(this.errorHandler);
+        if (appOptions.errorHandle) {
+            this.app.use(appOptions.errorHandle);
+        } else {
+            this.app.use(this.errorHandler);
+        }
+
+
     }
 
     private setOpenApiValidatorOptions(definitionPath: string, appOptions: Oas3AppOptions) {
